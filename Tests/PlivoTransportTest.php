@@ -62,7 +62,7 @@ final class PlivoTransportTest extends TransportTestCase
         $response = $this->createMock(ResponseInterface::class);
         $response->expects(self::exactly(2))->method('getStatusCode')->willReturn(202);
         $response->expects(self::once())->method('getContent')->willReturn(json_encode(['message' => 'message(s) queued', 'message_uuid' => ['foo'], 'api_id' => 'bar']));
-        $client = new MockHttpClient(function (string $method, string $url) use ($response): ResponseInterface {
+        $client = new MockHttpClient(static function (string $method, string $url) use ($response): ResponseInterface {
             self::assertSame('POST', $method);
             self::assertSame('https://api.plivo.com/v1/Account/authId/Message/', $url);
 
